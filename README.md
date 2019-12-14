@@ -25,7 +25,7 @@ Placing the script the `<head>` of an HTML could cause latency and slows the flo
 
 ![pending_css](/img/a.png)
 
-### AWESOME PRACTICE: Script (A1-2)
+### AWESOME PRACTICE: Script before </body> (A1-2)
 
 That's why you always should place the script at last, before the `</body>`. Placing the script at the end allows the website to load the style at first. That why you want to put the style in the `<head>`. And as you can see from the image below the HTML file and the CSS file are loaded and the Object Models created.
 
@@ -54,25 +54,30 @@ The best thing to do when you have multiple `CSS` files is to load them when you
 
 ```
 const loadStyleSheet = src => {
-            // Some browser have this functionality 
-            if(document.createStylesheet){
-                document.createStylesheet(src)
-            } else {
-                // Others don't so you need to create the tag by yourself
-                // < [link] [rel] [type] [href] >
-                const stylesheet = document.createElement('link');
-                stylesheet.rel = 'stylesheet';
-                stylesheet.type = 'text/css';
-                stylesheet.href = src;
-                document.getElementsByTagName('head')[0].appendChild(stylesheet);
-            }
+
+        // Some browser have this functionality 
+
+        if(document.createStylesheet){
+            document.createStylesheet(src)
+        } else {
+
+            // Others don't so you need to create the tag by yourself
+            // < [link] [rel] [type] [href] >
+
+            const stylesheet = document.createElement('link');
+            stylesheet.rel = 'stylesheet';
+            stylesheet.type = 'text/css';
+            stylesheet.href = src;
+            document.getElementsByTagName('head')[0].appendChild(stylesheet);
         }
-        // after, you need to load everything in the browser
-        window.onload = () => {
-            console.log('Style loaded!');
-            // You could save the src in a variable like so: let inputSrc = './style3.css';
-            loadStyleSheet('./style3.css');
-        }
+    }
+    
+// after, you need to load everything in the browser
+window.onload = () => {
+
+    console.log('Style loaded!');
+    loadStyleSheet('./style3.css');
+}
 
 ```
 
@@ -81,7 +86,6 @@ First the `HTML` will look like this:
 ```
 <head>
     <title>Crtical Render Path</title>
-    
 </head>
 
 ```
@@ -91,7 +95,6 @@ After:
 ```
 <head>
     <title>Crtical Render Path</title>
-
     <link rel="stylesheet" type="text/css" href="style3.css" />
 </head>
 
@@ -99,7 +102,7 @@ After:
 
 In the image below you can see that the Browser is loading the `./style3.css` only after the element that uses it, is shown. The red line indicates where the loading stops. As you can see it stops right before the `./style3.css`.
 
-![loading](c.png)
+![loading](/img/c.png)
 
 
 ### Media Attributes (B3)
@@ -107,8 +110,8 @@ In the image below you can see that the Browser is loading the `./style3.css` on
 You can also use the `media` query inside the `link` tag. Doing so not only will prevent loading a `CSS` file but will also give you the option to tell the Browser when to do it. In the example below, the criteria to match is: `max-width: 800px`. 
 
 ```
- <!-- B3. Download style, only when the screen is more than 800px -->
-    <link rel="stylesheet" type="text/css" media="only screen and (min-width:800px)" href="./style2.css">
+<!-- B3. Download style, only when the screen is more than 800px -->
+<link rel="stylesheet" type="text/css" media="only screen and (min-width:800px)" href="./style2.css">
 ```
 
 ### Less specificity (B4)
@@ -123,7 +126,6 @@ Avoid useless nested element, it will end giving less work to do to the Browser:
 }
 
 /* AWESOME Practice */
-/* B4. Less specificity */
 
 div.test {
     color: black;
