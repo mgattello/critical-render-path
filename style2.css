@@ -1,0 +1,14 @@
+h1 {
+    color: violet;
+}
+
+/* SAD Practice */
+.header .nav .item div.test {
+    color: black;
+}
+
+/* AWESOME Practice */
+/* B4. Less specificity */
+div.test {
+    color: black;
+}

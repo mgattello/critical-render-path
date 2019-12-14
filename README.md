@@ -12,18 +12,118 @@ When you open a website, a few things happen in the background, specifically in 
 
 An understanding of The Critical Render Path helps you to pay more attention to how to create things in your website and where to place it. An example could be when is the best moment to load your script or style.
 
+## Optimize the DOM phase (A)
+
+1. Load the style in the `</head>`
+2. Load the script before the `</body>`
+
 ### SAD PRACTICE: Script in the <head>
 
-Placing the script the `<head>` of an HTML could cause latency and slows the flow of a website. In the example below you can see that the script prevents from loading the CSS file (pending), that should be one of the first things that must be loaded.
+Placing the script the `<head>` of an HTML could cause latency and slows the flow of a website. In the example below, you can see that the script prevents from loading the CSS file (pending), that should be one of the first things that must be loaded.
 
-![pending_css]url(/img/a.png)
+![pending_css](/img/a.png)
 
-### AWESOME PRACTICE: Script in the <head>
+### AWESOME PRACTICE: Script in the <head> (A1-2)
 
 That's why you always should place the script at last, before the `</body>`. Placing the script at the end allows the website to load the style at first. That why you want to put the style in the `<head>`. And as you can see from the image below the HTML file and the CSS file are loaded and the Object Models created.
 
-![pending_css]url(/img/b.png)
+![pending_css](/img/b.png)
+
 
 ## Exception
 
-An exception could the Google Analitycs script that must be placed in the `<head>` in order to track all the user behaviours from the first load of the page to the sad click of the red button.
+An exception could the Google Analitycs script that must be placed in the `<head>` to track all the user behaviours from the first load of the page to the sad click of the red button.
+
+## Optimize the CSSOM phase (B)
+
+1. Load only what you need (silly but important!)
+2. Above the fold loading (see the example below)
+3. Media Attributes
+4. Less specificity
+
+### Load only what you need (B1)
+
+You could avoid loading a `CSS` file using Internal CSS or Inline CSS. Those methods are the best option, only when you don't have multiple `HTML` files. It this case you won't load any style file. 
+
+### Above the fold loading  (B2)
+
+The best thing to do when you have multiple `CSS` files is to load them when you need/use it. It's possible to accomplish this task using JS:
+
+```
+const loadStyleSheet = src => {
+            // Some browser have this functionality 
+            if(document.createStylesheet){
+                document.createStylesheet(src)
+            } else {
+                // Others don't so you need to create the tag by yourself
+                // < [link] [rel] [type] [href] >
+                const stylesheet = document.createElement('link');
+                stylesheet.rel = 'stylesheet';
+                stylesheet.type = 'text/css';
+                stylesheet.href = src;
+                document.getElementsByTagName('head')[0].appendChild(stylesheet);
+            }
+        }
+        // after, you need to load everything in the browser
+        window.onload = () => {
+            console.log('Style loaded!');
+            // You could save the src in a variable like so: let inputSrc = './style3.css';
+            loadStyleSheet('./style3.css');
+        }
+
+```
+
+First the `HTML` will look like this: 
+
+```
+<head>
+    <title>Crtical Render Path</title>
+    
+</head>
+
+```
+
+After:
+
+```
+<head>
+    <title>Crtical Render Path</title>
+
+    <link rel="stylesheet" type="text/css" href="style3.css" />
+</head>
+
+```
+
+In the image below you can see that the Browser is loading the `./style3.css` only after the element that uses it, is shown. The red line indicates where the loading stops. As you can see it stops right before the `./style3.css`.
+
+![loading](c.png)
+
+
+### Media Attributes (B3)
+
+You can also use the `media` query inside the `link` tag. Doing so not only will prevent loading a `CSS` file but will also give you the option to tell the Browser when to do it. In the example below, the criteria to match is: `max-width: 800px`. 
+
+```
+ <!-- B3. Download style, only when the screen is more than 800px -->
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width:800px)" href="./style2.css">
+```
+
+### Less specificity (B4)
+
+Avoid useless nested element, it will end giving less work to do to the Browser:
+
+```
+/* SAD Practice */
+
+.header .nav .item div.test {
+    color: black;
+}
+
+/* AWESOME Practice */
+/* B4. Less specificity */
+
+div.test {
+    color: black;
+}
+
+```

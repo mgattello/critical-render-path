@@ -1,23 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- 1. The style is the first thing needs to be loaded. To do so, put it in the head of the HTML -->
-    <link rel="stylesheet" href="style.css" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Crtical Render Path</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- A1. The style is the first thing needs to be loaded. To do so, put it in the head of the HTML 
+        <link rel="stylesheet" href="style.css" media="all" />
+    -->
+
+    <!-- B3. Download style, only when the screen is more than 800px -->
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width:800px)" href="./style2.css">
+
+    <!-- B1. Internal CSS or Inline CSS - In this case you don't have to load style.css - USE IT ONLY when you don't have multiple pages-->
+    <style>
+        body {
+        margin: 0;
+        text-align: center;
+        transform: translateX(-50);
+        transform: translateY(-50);
+    }
+
+    h1 {
+        color: teal;
+    }
+
+    .important {
+        border: 1px solid black;
+    }
+    </style>
+
 </head>
 <body>
-    <h1>How fast?</h1>
+    <h1>Am I omptimized?</h1>
     <button>click me!</button>
     <br />
     <hr />
     <div>
         DOM > CSSOM > Render Tree > Layout > Paint 
     </div>
-    <!-- 2. The script instead must be loaded at last because will be loaded after the DOM & CSSOM. Loading the script beofre could cause lack in performance-->
-    <!-- an exeption could be Google Analitycs Script-->
+
+    <!-- B1. Inline style, in this case you don't have to load any style file -->
+    
+    <!-- B2. Above the fold loading -->
+    <h2 class="important">Can you see me?</h2>
+
+    <h2 class="secondary">Can you, Jhon?</h2>
+
+    <!-- B2. Above the fold loading -->
+    <script type="text/javascript">
+        const loadStyleSheet = src => {
+            if(document.createStylesheet){
+                document.createStylesheet(src)
+            } else {
+                const stylesheet = document.createElement('link');
+                stylesheet.rel = 'stylesheet';
+                stylesheet.type = 'text/css';
+                stylesheet.href = src;
+                document.getElementsByTagName('head')[0].appendChild(stylesheet);
+            }
+        }
+
+        window.onload = () => {
+            console.log('Style loaded!');
+            loadStyleSheet('./style3.css');
+        }
+    </script>
+    <!--
+    A2. The script instead must be loaded at last because will be loaded after the DOM & CSSOM. Loading the script beofre could cause lack in performance
     <script>alert("Hey, I'm KVN")</script>
+    -->
 </body>
 </html>
