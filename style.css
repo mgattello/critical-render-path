@@ -1,0 +1,7 @@
+body {
+    margin: 0;
+    text-align: center;
+    transform: translateX(-50);
+    transform: translateY(-50);
+    color: blue;
+}

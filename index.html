@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 1. The style is the first thing needs to be loaded. To do so, put it in the head of the HTML -->
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Crtical Render Path</title>
+</head>
+<body>
+    <h1>How fast?</h1>
+    <button>click me!</button>
+    <br />
+    <hr />
+    <div>
+        DOM > CSSOM > Render Tree > Layout > Paint 
+    </div>
+    <!-- 2. The script instead must be loaded at last because will be loaded after the DOM & CSSOM. Loading the script beofre could cause lack in performance-->
+    <!-- an exeption could be Google Analitycs Script-->
+    <script>alert("Hey, I'm KVN")</script>
+</body>
+</html>
