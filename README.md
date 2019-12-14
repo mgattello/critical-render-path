@@ -23,7 +23,7 @@ Placing the script the `<head>` of an HTML could cause latency and slows the flo
 
 ![pending_css](/img/a.png)
 
-### AWESOME PRACTICE: Script in the <head> (A1-2)
+### AWESOME PRACTICE: Script (A1-2)
 
 That's why you always should place the script at last, before the `</body>`. Placing the script at the end allows the website to load the style at first. That why you want to put the style in the `<head>`. And as you can see from the image below the HTML file and the CSS file are loaded and the Object Models created.
 
