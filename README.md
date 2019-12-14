@@ -16,13 +16,13 @@ An understanding of The Critical Render Path helps you to pay more attention to 
 
 Placing the script the `<head>` of an HTML could cause latency and slows the flow of a website. In the example below you can see that the script prevents from loading the CSS file (pending), that should be one of the first things that must be loaded.
 
-![pending_css]url(/img/a.png)
+![pending_css](/img/a.png)
 
 ### AWESOME PRACTICE: Script in the <head>
 
 That's why you always should place the script at last, before the `</body>`. Placing the script at the end allows the website to load the style at first. That why you want to put the style in the `<head>`. And as you can see from the image below the HTML file and the CSS file are loaded and the Object Models created.
 
-![pending_css]url(/img/b.png)
+![pending_css](/img/b.png)
 
 ## Exception
 
