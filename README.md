@@ -3,6 +3,8 @@
 
 When you open a website, a few things happen in the background, specifically in the Browser. The first step is loading the HTML file from the server and create a DOM (Document Object Model). This Object tells the Browser the content of the website. Then a CSS file is loaded creating the CSSOM, another object that tells the Browser which style to apply. After that phase, it's time for the JS file. With the DOM and CSSOM, a Render Tree is created. The layout is shown on the page and finally, the pixels are painted with colours. All these processes happen in few milliseconds, without you even notice, and together form the Critical Render Path:
 
+![[critical_render_path](/img/d.png)
+
 1. DOM
 2. CSSOM
 3. Render Tree
