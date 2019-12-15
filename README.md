@@ -135,4 +135,4 @@ div.test {
 
 ```
 
-In the next repository, I'll optimize the scripts: https://mgattello.github.io/critical-render-path-2/
+In the next repository, I'll optimize the scripts: https://github.com/mgattello/critical-render-path-2
