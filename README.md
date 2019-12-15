@@ -17,7 +17,7 @@ An understanding of The Critical Render Path helps you to pay more attention to 
 
 ## Optimize the DOM phase (A)
 
-1. Load the style in the `</head>`
+1. Load the style in the `<head>`
 2. Load the script before the `</body>`
 
 ### SAD PRACTICE: Script in the head
